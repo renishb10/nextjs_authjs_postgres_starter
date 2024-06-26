@@ -1,19 +1,28 @@
 'use client';
 
+import { useState } from 'react';
+import Link from 'next/link';
+import { AlignRight, X } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
 import Container from '@/components/common/Container';
 import Logo from '@/components/navbar/Logo';
 import { Button } from '@/components/ui/button';
 import DarkMode from '@/components/navbar/DarkMode';
-import { useState } from 'react';
-import Link from 'next/link';
 import { publicLinks } from '@/lib/links';
-import { AlignRight, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const [clicked, setClicked] = useState(false);
+  const { data: session, status: sessionStatus } = useSession();
+  const router = useRouter();
 
   const toggleNavbar = (): void => {
     setClicked(!clicked);
+  };
+
+  const handleSignOut = async (): Promise<void> => {
+    await signOut();
+    router.push('/');
   };
 
   return (
@@ -40,22 +49,30 @@ const Navbar = () => {
               </Link>
             ))}
             <DarkMode />
-            <Button asChild variant="outline">
-              <Link
-                href="/login"
-                className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
-              >
-                Login
-              </Link>
-            </Button>
-            <Button asChild>
-              <Link
-                href="/signup"
-                className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
-              >
-                Signup
-              </Link>
-            </Button>
+            {sessionStatus === 'loading' ? null : !session ? (
+              <>
+                <Button asChild variant="outline">
+                  <Link
+                    href="/login"
+                    className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+                  >
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild>
+                  <Link
+                    href="/signup"
+                    className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+                  >
+                    Sign Up
+                  </Link>
+                </Button>
+              </>
+            ) : (
+              <Button variant="outline" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            )}
           </div>
         </div>
         <div className="md:hidden flex items-center gap-4">
@@ -86,22 +103,35 @@ const Navbar = () => {
             ))}
           </div>
           <div className="flex justify-center items-center gap-4 mb-6">
-            <Button asChild variant="outline" size="lg">
-              <Link
-                href="/login"
-                className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+            {sessionStatus === 'loading' ? null : !session ? (
+              <>
+                <Button asChild variant="outline" size="lg">
+                  <Link
+                    href="/login"
+                    className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+                  >
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild size="lg">
+                  <Link
+                    href="/signup"
+                    className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+                  >
+                    Signup
+                  </Link>
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleSignOut}
+                className="w-4/5"
               >
-                Login
-              </Link>
-            </Button>
-            <Button asChild size="lg">
-              <Link
-                href="/signup"
-                className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
-              >
-                Signup
-              </Link>
-            </Button>
+                Sign Out
+              </Button>
+            )}
           </div>
         </div>
       )}
