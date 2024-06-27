@@ -8,7 +8,7 @@ import Container from '@/components/common/Container';
 import Logo from '@/components/navbar/Logo';
 import { Button } from '@/components/ui/button';
 import DarkMode from '@/components/navbar/DarkMode';
-import { publicLinks } from '@/lib/links';
+import { navLinks } from '@/lib/navLinks';
 import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:block">
           <div className="ml-4 flex items-center space-x-4">
-            {publicLinks.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 href={link.href}
                 key={link.label}
@@ -92,7 +92,7 @@ const Navbar = () => {
       {clicked && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {publicLinks.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 href={link.href}
                 key={link.label}

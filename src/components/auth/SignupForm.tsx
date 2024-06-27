@@ -38,7 +38,7 @@ const SignupForm = () => {
     setSuccessMsg('');
 
     startTransition(() => {
-      actions.signIn(values).then((data) => {
+      actions.signUp(values).then((data) => {
         setErrorMsg(data.error);
         setSuccessMsg(data.success);
       });
