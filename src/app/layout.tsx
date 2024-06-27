@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Providers from '@/providers/Providers';
-import Navbar from '@/components/navbar/Navbar';
-import Container from '@/components/common/Container';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,14 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers>
-          <Suspense>
-            <Navbar />
-          </Suspense>
-          <Container>{children}</Container>
-        </Providers>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

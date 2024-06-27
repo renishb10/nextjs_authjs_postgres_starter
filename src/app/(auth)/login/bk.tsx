@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import paths from '@/paths';
+import LoginForm from '@/components/auth/LoginForm';
 
 type FormData = {
   email: string;
@@ -36,6 +37,7 @@ const LoginPage = () => {
   return (
     <div>
       <h1>Login</h1>
+      <LoginForm />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Email</label>
