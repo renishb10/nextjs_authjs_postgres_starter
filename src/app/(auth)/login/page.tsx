@@ -5,6 +5,7 @@ import Link from 'next/link';
 import LoginForm from '@/components/auth/LoginForm';
 import authImage from '../../../../public/img/auth_img.jpg';
 import Logo from '@/components/navbar/Logo';
+import SocialButtons from '@/components/auth/SocialButtons';
 
 export const metadata: Metadata = {
   title: 'Login | NextJS Starter Code',
@@ -23,11 +24,22 @@ const LoginPage = () => {
             <p className="text-center text-3xl font-bold">
               Let&apos;s Get Started
             </p>
-            <p className="mt-2 text-center">
+            <p className="my-2 text-center">
               Login to power up your experience.
             </p>
+
+            <SocialButtons />
+
+            {/* Divider with Text */}
+            <div className="flex items-center my-4">
+              <div className="flex-grow border-t border-gray-300"></div>
+              <span className="mx-4 text-gray-500">Or</span>
+              <div className="flex-grow border-t border-gray-300"></div>
+            </div>
+
             <LoginForm />
-            <div className="pt-12 pb-12 text-center">
+
+            <div className="pt-2 pb-12 text-center">
               <p className="whitespace-nowrap">
                 Don&apos;t have an account?
                 <Link href="signup" className="font-semibold underline">

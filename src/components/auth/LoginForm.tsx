@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +21,12 @@ import FormSuccess from '@/components/form/FormSuccess';
 import * as actions from '@/actions';
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Uh-ho! This email is already associated with another login method!'
+      : '';
+
   const [errorMsg, setErrorMsg] = useState<string | undefined>('');
   const [successMsg, setSuccessMsg] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -47,7 +54,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-2">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
@@ -88,12 +95,12 @@ const LoginForm = () => {
               )}
             />
           </div>
-          <FormError message={errorMsg} />
+          <FormError message={errorMsg || urlError} />
           <FormSuccess message={successMsg} />
           <Button
             type="submit"
             size="lg"
-            className="w-full"
+            className="w-full py-2"
             disabled={isPending}
           >
             Login
