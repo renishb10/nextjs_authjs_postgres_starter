@@ -1,5 +1,3 @@
-import paths from '@/paths';
-
 type NavLink = {
   href: string;
   label: string;

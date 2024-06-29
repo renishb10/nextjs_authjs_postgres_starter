@@ -38,8 +38,10 @@ const LoginForm = () => {
 
     startTransition(() => {
       actions.signIn(values).then((data) => {
-        setErrorMsg(data.error);
-        setSuccessMsg(data.success);
+        if (data) {
+          setErrorMsg(data.error);
+          setSuccessMsg(data.success);
+        }
       });
     });
   };
