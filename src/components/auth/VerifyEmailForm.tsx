@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { RiseLoader } from 'react-spinners';
 import { useSearchParams } from 'next/navigation';
-import { verifyEmail } from '@/actions/verifyEmail';
+import * as actions from '@/actions';
 import FormSuccess from '../form/FormSuccess';
 import FormError from '../form/FormError';
 
@@ -19,7 +19,8 @@ const VerifyEmailForm = () => {
       return;
     }
 
-    verifyEmail(token)
+    actions
+      .verifyEmail(token)
       .then((data) => {
         setSuccess(data.success);
         setError(data.error);

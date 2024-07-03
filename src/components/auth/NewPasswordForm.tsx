@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -13,39 +13,33 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { LoginSchema } from '@/schemas';
+import { NewPasswordSchema } from '@/schemas';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import FormError from '@/components/form/FormError';
 import FormSuccess from '@/components/form/FormSuccess';
 import * as actions from '@/actions';
-import Link from 'next/link';
 
-const LoginForm = () => {
+const NewPasswordForm = () => {
   const searchParams = useSearchParams();
-  const urlError =
-    searchParams.get('error') === 'OAuthAccountNotLinked'
-      ? 'Uh-ho! This email is already associated with another login method!'
-      : '';
-
+  const token = searchParams.get('token');
   const [errorMsg, setErrorMsg] = useState<string | undefined>('');
   const [successMsg, setSuccessMsg] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      email: '',
       password: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
     setErrorMsg('');
     setSuccessMsg('');
 
     startTransition(() => {
-      actions.signIn(values).then((data) => {
+      actions.newPassword(values, token).then((data) => {
         if (data) {
           setErrorMsg(data.error);
           setSuccessMsg(data.success);
@@ -61,28 +55,10 @@ const LoginForm = () => {
           <div className="space-y-4">
             <FormField
               control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="johndoe@example.com"
-                      type="email"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -91,20 +67,12 @@ const LoginForm = () => {
                       disabled={isPending}
                     />
                   </FormControl>
-                  <Button
-                    size="sm"
-                    variant="link"
-                    asChild
-                    className="px-0 font-normal"
-                  >
-                    <Link href="/auth/reset-password">Forgot Password?</Link>
-                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <FormError message={errorMsg || urlError} />
+          <FormError message={errorMsg} />
           <FormSuccess message={successMsg} />
           <Button
             type="submit"
@@ -112,11 +80,11 @@ const LoginForm = () => {
             className="w-full py-2"
             disabled={isPending}
           >
-            Login
+            Reset Password
           </Button>
         </form>
       </Form>
     </div>
   );
 };
-export default LoginForm;
+export default NewPasswordForm;
