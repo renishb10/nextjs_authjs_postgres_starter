@@ -9,7 +9,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
   await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: email,
-    subject: 'Confirm your email',
+    subject: 'NextJs-Starter-App | Confirm your email',
     html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
   });
 };
@@ -20,7 +20,16 @@ export const sendResetPasswordEmail = async (email: string, token: string) => {
   await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: email,
-    subject: 'Reset your password',
+    subject: 'NextJs-Starter-App | Reset your password',
     html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`,
+  });
+};
+
+export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
+  await resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: email,
+    subject: 'NextJs-Starter-App | Two Factor Code',
+    html: `<p>Your 2FA code: ${token}</p>`,
   });
 };
