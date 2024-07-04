@@ -77,6 +77,7 @@ const LoginForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             {showTwoFactor && (
+              // TODO: Change input to OTP/2FC type
               <FormField
                 control={form.control}
                 name="code"

@@ -1,8 +1,8 @@
 import { auth } from '@/auth';
 
-const Profile = async () => {
+const Settings = async () => {
   const session = await auth();
 
   return <div>{JSON.stringify(session)}</div>;
 };
-export default Profile;
+export default Settings;
