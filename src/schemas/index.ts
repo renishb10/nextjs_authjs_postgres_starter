@@ -5,4 +5,12 @@ import {
   NewPasswordSchema,
 } from './authSchema';
 
-export { LoginSchema, SignupSchema, ResetPasswordSchema, NewPasswordSchema };
+import { UserSchema } from './userSchema';
+
+export {
+  LoginSchema,
+  SignupSchema,
+  ResetPasswordSchema,
+  NewPasswordSchema,
+  UserSchema,
+};
