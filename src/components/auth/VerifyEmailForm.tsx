@@ -25,9 +25,8 @@ const VerifyEmailForm = () => {
         setSuccess(data.success);
         setError(data.error);
       })
-      .catch((e) => {
+      .catch(() => {
         setError('Something went wrong!');
-        console.log(e);
       });
   }, [token]);
 

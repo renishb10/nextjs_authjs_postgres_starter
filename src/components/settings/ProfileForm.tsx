@@ -34,6 +34,7 @@ export function ProfileForm() {
     name: '',
     email: '',
     password: undefined,
+    isTwoFactorEnabled: undefined,
   };
 
   const form = useForm<z.infer<typeof UserSchema>>({
@@ -47,7 +48,8 @@ export function ProfileForm() {
         name: user?.name || undefined,
         email: user?.email || undefined,
         password: undefined,
-        isTwoFactorEnabled: user?.isTwoFactorEnabled,
+        newPassword: undefined,
+        isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
       });
     }
   }, [user, form]);

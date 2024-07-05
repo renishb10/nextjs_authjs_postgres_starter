@@ -31,6 +31,7 @@ const OTPInputSchema = z.object({
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'Uh-ho! This email is already associated with another login method!'
@@ -84,7 +85,7 @@ const LoginForm = () => {
 
     startTransition(() => {
       actions
-        .signIn(values)
+        .signIn(values, callbackUrl)
         .then((data) => {
           if (data) {
             if (data?.error) {
