@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import * as z from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,6 +21,13 @@ import FormError from '@/components/form/FormError';
 import FormSuccess from '@/components/form/FormSuccess';
 import * as actions from '@/actions';
 import Link from 'next/link';
+
+const OTPInputSchema = z.object({
+  digit1: z.string().length(1),
+  digit2: z.string().length(1),
+  digit3: z.string().length(1),
+  digit4: z.string().length(1),
+});
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -41,7 +49,36 @@ const LoginForm = () => {
     },
   });
 
+  const otpForm = useForm({
+    resolver: zodResolver(OTPInputSchema),
+    defaultValues: {
+      digit1: '',
+      digit2: '',
+      digit3: '',
+      digit4: '',
+    },
+  });
+
+  const digit1Ref = useRef<HTMLInputElement>(null);
+  const digit2Ref = useRef<HTMLInputElement>(null);
+  const digit3Ref = useRef<HTMLInputElement>(null);
+  const digit4Ref = useRef<HTMLInputElement>(null);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    nextRef: React.RefObject<HTMLInputElement>
+  ) => {
+    if (e.target.value.length === 1 && nextRef.current) {
+      nextRef.current.focus();
+    }
+  };
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    if (showTwoFactor) {
+      const otpValues = otpForm.getValues();
+      values.code = `${otpValues.digit1}${otpValues.digit2}${otpValues.digit3}${otpValues.digit4}`;
+    }
+
     setErrorMsg('');
     setSuccessMsg('');
 
@@ -77,25 +114,112 @@ const LoginForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             {showTwoFactor && (
-              // TODO: Change input to OTP/2FC type
-              <FormField
-                control={form.control}
-                name="code"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="1234"
-                        type="code"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <Form {...otpForm}>
+                <div className="text-sm font-sans font-semibold text-center">
+                  2FA Code
+                </div>
+                <div className="flex space-x-4 justify-center">
+                  <FormField
+                    control={otpForm.control}
+                    name="digit1"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="-"
+                            autoComplete="off"
+                            type="text"
+                            maxLength={1}
+                            disabled={isPending}
+                            className="text-center w-12"
+                            ref={digit1Ref}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleInputChange(e, digit2Ref);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={otpForm.control}
+                    name="digit2"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="-"
+                            autoComplete="off"
+                            type="text"
+                            maxLength={1}
+                            disabled={isPending}
+                            className="text-center w-12"
+                            ref={digit2Ref}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleInputChange(e, digit3Ref);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={otpForm.control}
+                    name="digit3"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="-"
+                            autoComplete="off"
+                            type="text"
+                            maxLength={1}
+                            disabled={isPending}
+                            className="text-center w-12"
+                            ref={digit3Ref}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleInputChange(e, digit4Ref);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={otpForm.control}
+                    name="digit4"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="-"
+                            autoComplete="off"
+                            type="text"
+                            maxLength={1}
+                            disabled={isPending}
+                            className="text-center w-12"
+                            ref={digit4Ref}
+                            onChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormDescription>
+                  Please enter the 4-digit code sent to your registered email
+                  address. This helps secure your account by verifying your
+                  identity.
+                </FormDescription>
+                <FormMessage />
+              </Form>
             )}
             {!showTwoFactor && (
               <>
@@ -163,4 +287,5 @@ const LoginForm = () => {
     </div>
   );
 };
+
 export default LoginForm;

@@ -52,7 +52,7 @@ export const userSettings = async (values: z.infer<typeof UserSchema>) => {
     );
 
     if (!passwordsMatch) {
-      return { error: 'Incorrect password!' };
+      return { error: 'Incorrect current password!' };
     }
 
     const hashedPassword = await hashPassword(values.newPassword);

@@ -47,6 +47,7 @@ export function ProfileForm() {
         name: user?.name || undefined,
         email: user?.email || undefined,
         password: undefined,
+        isTwoFactorEnabled: user?.isTwoFactorEnabled,
       });
     }
   }, [user, form]);
@@ -57,6 +58,7 @@ export function ProfileForm() {
         .then((data) => {
           if (data.success) {
             update();
+            setErrorMsg('');
             toast({
               title: data.success,
             });
@@ -115,7 +117,7 @@ export function ProfileForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Current Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
