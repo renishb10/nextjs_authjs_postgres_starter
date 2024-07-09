@@ -33,7 +33,7 @@ const VerifyEmailPage = () => {
             <div className="pt-2 pb-12 text-center">
               <p className="whitespace-nowrap">
                 Back to
-                <Link href="signin" className="font-semibold underline">
+                <Link href="/login" className="font-semibold underline">
                   {' '}
                   Login.{' '}
                 </Link>
