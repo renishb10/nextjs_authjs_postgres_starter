@@ -5,7 +5,7 @@ import {
   NewPasswordSchema,
 } from './authSchema';
 
-import { UserSchema } from './userSchema';
+import { UserSchema, DeleteAccountSchema } from './userSchema';
 
 export {
   LoginSchema,
@@ -13,4 +13,5 @@ export {
   ResetPasswordSchema,
   NewPasswordSchema,
   UserSchema,
+  DeleteAccountSchema,
 };

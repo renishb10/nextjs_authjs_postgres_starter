@@ -1,3 +1,6 @@
+'use client';
+
+import DeleteAccountForm from '@/components/settings/DeleteAccountForm';
 import { Separator } from '@/components/ui/separator';
 
 const AccountPage = () => {
@@ -6,10 +9,11 @@ const AccountPage = () => {
       <div>
         <h3 className="text-lg font-medium">Account</h3>
         <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
+          You can manage your account here.
         </p>
       </div>
       <Separator />
+      <DeleteAccountForm />
     </div>
   );
 };

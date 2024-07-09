@@ -36,3 +36,9 @@ export const UserSchema = z
       path: ['password'],
     }
   );
+
+export const DeleteAccountSchema = z.object({
+  deleteTxt: z.literal('delete', {
+    message: "Type 'delete' to proceed deleting your account.",
+  }),
+});

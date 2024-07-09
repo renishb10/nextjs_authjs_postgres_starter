@@ -5,7 +5,7 @@ import * as z from 'zod';
 import db from '@/lib/db';
 import { findUserByEmail, findUserById } from '@/data/user';
 import { currentUser } from '@/lib/auth';
-import { UserSchema } from '@/schemas';
+import { DeleteAccountSchema, UserSchema } from '@/schemas';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
 import { comparePassword, hashPassword } from '@/lib/hash';
@@ -69,4 +69,30 @@ export const userSettings = async (values: z.infer<typeof UserSchema>) => {
   });
 
   return { success: 'Settings updated!' };
+};
+
+export const deleteUserAccount = async (
+  values: z.infer<typeof DeleteAccountSchema>
+) => {
+  const user = await currentUser();
+  if (!user) {
+    return { error: 'Unauthorized' };
+  }
+
+  const existingUser = await findUserById(user.id || '');
+  if (!existingUser) {
+    return { error: 'Unauthorized' };
+  }
+
+  const validateFields = DeleteAccountSchema.safeParse(values);
+
+  if (!validateFields.success) {
+    return { error: 'Invalid fields' };
+  }
+
+  await db.user.delete({
+    where: { id: existingUser.id },
+  });
+
+  return { success: 'Account deleted - We miss you!' };
 };
