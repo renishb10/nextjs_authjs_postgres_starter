@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import BgGradientTop from '@/components/common/BgGradientTop';
+import BgGradientBottom from '@/components/common/BgGradientBottom';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <BgGradientTop />
         <Toaster />
-        {children}
+        <div className="z-0">{children}</div>
+        <BgGradientBottom />
       </body>
     </html>
   );
