@@ -48,7 +48,7 @@ const Navbar = () => {
               <Link
                 href={link.href}
                 key={link.label}
-                className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+                className="capitalize text-current hover:bg-white dark:hover:bg-transparent hover:text-black dark:hover:text-slate-200 rounded-lg p-2"
               >
                 {link.label}
               </Link>
@@ -59,7 +59,7 @@ const Navbar = () => {
                 <Button asChild variant="outline">
                   <Link
                     href="/login"
-                    className="capitalize text-black hover:bg-white hover:text-black rounded-lg p-2"
+                    className="capitalize text-black dark:text-white hover:bg-gray-100 hover:text-black dark:hover:bg-opacity-10 dark:hover:text-slate-200 rounded-lg p-2"
                   >
                     Login
                   </Link>

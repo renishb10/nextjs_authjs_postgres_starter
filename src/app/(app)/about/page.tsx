@@ -6,10 +6,10 @@ const About = () => {
     <section className="text-black body-font mt-8">
       <div className="container mx-auto flex px-5 py-5 md:flex-row flex-col items-center">
         <div className="lg:flex-grow flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
             Supercharge Your Development with Our Ultimate Next.js Boilerplate!
           </h1>
-          <p className="mt-4 mb-2 text-md leading-7 text-gray-600">
+          <p className="mt-4 mb-2 text-md leading-7 text-slate-600 dark:text-slate-400">
             Our Next.js Boilerplate is meticulously crafted to streamline your
             development process. It integrates a powerful tech stack designed to
             enhance performance, scalability, and maintainability. With Next.js
@@ -17,7 +17,7 @@ const About = () => {
             and flexible routing options that make your applications faster and
             more efficient.{' '}
           </p>
-          <p className="my-2 text-md leading-7 text-gray-600">
+          <p className="my-2 text-md leading-7 text-slate-600 dark:text-slate-400">
             Our implementation of Auth.js V5 ensures robust authentication,
             while TypeScript provides a reliable and maintainable codebase
             through static typing. Design stunning, responsive interfaces
@@ -27,7 +27,7 @@ const About = () => {
             Prisma for a robust relational database solution with elegant,
             type-safe database access.{' '}
           </p>
-          <p className="my-2 text-md leading-7 text-gray-600">
+          <p className="my-2 text-md leading-7 text-slate-600 dark:text-slate-400">
             Finally, validate and manage forms efficiently using Zod and React
             Form Hook. Our boilerplate accelerates the setup process and ensures
             your project starts with a solid foundation, allowing you to focus
@@ -37,7 +37,7 @@ const About = () => {
           <div className="flex justify-center mt-4">
             <Button
               size="lg"
-              className="rounded-md bg-black px-6 py-5 text-md font-semibold text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="rounded-md bg-black dark:bg-white px-5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
             >
               Get started
             </Button>
