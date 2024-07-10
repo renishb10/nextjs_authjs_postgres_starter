@@ -1,8 +1,26 @@
 'use client';
 
+import { redirectToRepo } from '@/actions/redirect';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const Hero = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    redirectToRepo()
+      .then((data) => {
+        if (data.error) {
+          router.push('/login');
+        }
+
+        if (data.success) {
+          window.open(data.success, '_blank');
+        }
+      })
+      .catch(() => console.log('Something went wrong!'));
+  };
+
   return (
     <div>
       <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -19,7 +37,7 @@ const Hero = () => {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button
-                onClick={(e) => {}}
+                onClick={handleClick}
                 className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
               >
                 Get started

@@ -1,7 +1,27 @@
+'use client';
+
+import { redirectToRepo } from '@/actions/redirect';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const About = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    redirectToRepo()
+      .then((data) => {
+        if (data.error) {
+          router.push('/login');
+        }
+
+        if (data.success) {
+          window.open(data.success, '_blank');
+        }
+      })
+      .catch(() => console.log('Something went wrong!'));
+  };
+
   return (
     <section className="text-black body-font mt-8">
       <div className="container mx-auto flex px-5 py-5 md:flex-row flex-col items-center">
@@ -38,6 +58,7 @@ const About = () => {
             <Button
               size="lg"
               className="rounded-md bg-black dark:bg-white px-5 py-2.5 text-sm font-semibold text-white dark:text-black shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+              onClick={handleClick}
             >
               Get started
             </Button>
