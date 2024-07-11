@@ -25,10 +25,10 @@ Implemented authentication providers:
 - Google
 - GitHub
 
-Login Page
+**Login Page**
 ![Login](screenshots/login.png)
 
-Settings Page
+**Settings Page**
 ![Login](screenshots/settings.png)
 
 The code is modular, making it easy to add or remove other providers. For more information, visit [Auth.js Providers](https://authjs.dev/getting-started#official-providers).
