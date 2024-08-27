@@ -129,6 +129,11 @@ For server-side auth session, use `currentUser` and `currentRole` from `@/lib/au
 
 For more Prisma-related commands, check their [official documentation](https://www.prisma.io/docs).
 
+## Todo
+
+- Integrate 3rd Party Logging service
+- Dockerize
+
 ## Developer
 
 This starter code was developed by [Renish B](https://renish.me/).
