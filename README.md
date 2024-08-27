@@ -132,6 +132,7 @@ For more Prisma-related commands, check their [official documentation](https://w
 ## Todo
 
 - Integrate 3rd Party Logging service
+- Integrate APM (Rollbar/Bugsnag/Sentry.io)
 - Dockerize
 
 ## Developer
