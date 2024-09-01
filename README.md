@@ -134,6 +134,12 @@ For more Prisma-related commands, check their [official documentation](https://w
 - Integrate 3rd Party Logging service
 - Integrate APM (Rollbar/Bugsnag/Sentry.io)
 - Dockerize
+- Add Date and String Utils
+- Import custom shadcn ui components
+  - Data Table
+  - Confirm Dialog
+  - Custom Date Time Picker
+  - etc
 
 ## Developer
 
